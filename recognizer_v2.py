@@ -14,11 +14,11 @@ import cv2
 import numpy
 import tensorflow as tf
 
-from keras.backend.tensorflow_backend import set_session
-config = tf.ConfigProto()
+from tensorflow.compat.v1.keras.backend import set_session
+config = tf.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True
 
-sess = tf.Session(config=config)
+sess = tf.compat.v1.Session(config=config)
 set_session(sess)
 
 class Recognizer(object):
@@ -35,8 +35,8 @@ class Recognizer(object):
         self._model_numeric_id = 'TS-D'
 #        self._model_numeric = tf.keras.models.load_model('models/lstm_mnist_air_pen_final.model')
 #        self._model_binary = tf.keras.models.load_model('models/lstm_noise_final.model')
-        self._model_numeric = tf.keras.models.load_model('models/TS-D.model')
-        self._model_binary = tf.keras.models.load_model('models/NZ-2.model')
+        self._model_numeric = tf.compat.v1.keras.models.load_model('models/TS-D.model')
+        self._model_binary = tf.compat.v1.keras.models.load_model('models/NZ-2.model')
         
         preload_img = cv2.imread('preload')
         self.predict(preload_img, 'TS-D')
@@ -80,13 +80,13 @@ class Recognizer(object):
         if model != self._model_numeric_id:
             self._model_numeric_id = model
             if model == 'TS-A':
-                self._model_numeric = tf.keras.models.load_model('models/TS-A.model')
+                self._model_numeric = tf.compat.v1.keras.models.load_model('models/TS-A.model')
             elif model == 'TS-B':
-                self._model_numeric = tf.keras.models.load_model('models/TS-B.model')
+                self._model_numeric = tf.compat.v1.keras.models.load_model('models/TS-B.model')
             elif model == 'TS-C':
-                self._model_numeric = tf.keras.models.load_model('models/TS-C.model')
+                self._model_numeric = tf.compat.v1.keras.models.load_model('models/TS-C.model')
             elif model == 'TS-D':
-                self._model_numeric = tf.keras.models.load_model('models/TS-D.model')
+                self._model_numeric = tf.compat.v1.keras.models.load_model('models/TS-D.model')
 #                self._model_numeric = tf.keras.models.load_model('models/lstm_mnist_air_pen_final.model')
                 
     def predict(self, image, model):
